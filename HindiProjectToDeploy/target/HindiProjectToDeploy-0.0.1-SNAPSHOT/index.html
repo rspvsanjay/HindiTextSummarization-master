@@ -1,0 +1,153 @@
+<script type="text/javascript">
+function GetDynamicTextBox(value){
+    return '<Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter the URL : </label>' +
+	 '<input name = "habits" type="text" class="urls" value = "' + value + '" />' +
+            '&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Remove" onclick = "RemoveTextBox(this)" /><br><br>'
+}
+function AddTextBox() {
+    var div = document.createElement('DIV');
+    div.innerHTML = GetDynamicTextBox("");
+    document.getElementById("TextBoxContainer").appendChild(div);
+}
+ 
+function RemoveTextBox(div) {
+    document.getElementById("TextBoxContainer").removeChild(div.parentNode);
+}
+ 
+function RecreateDynamicTextboxes() {
+    var values = eval('<%=Values%>');
+    if (values != null) {
+        var html = "";
+        for (var i = 0; i < values.length; i++) {
+            html += "<div>" + GetDynamicTextBox(values[i]) + "</div>";
+        }
+        document.getElementById("TextBoxContainer").innerHTML = html;
+    }
+}
+window.onload = RecreateDynamicTextboxes;
+</script>
+
+
+
+<html>
+<head>
+<title>T-SUMM</title>
+<style>
+
+ #info {
+    float:left;
+    text-align:center;
+    width:770px;
+    height:600px;
+    background:#fcfcfc;
+    border:thin solid;
+    border-color:#CCC;
+    -moz-border-radius: 5px;    
+    -webkit-border-radius: 5px; 
+    -o-border-radius: 5px;
+    font-family: "Myriad Pro";
+    font-size: 12px;
+}
+
+</style>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript">
+
+
+        function check()
+		{
+
+
+
+            if (document.getElementById('t1').value==""
+             || document.getElementById('t1').value==undefined)
+            {
+                alert ("Please Enter a Query");
+                return false;
+            }                
+            
+            if(document.getElementById('t1').value.split("").filter( function(char){ var charCode = char.charCodeAt(); return charCode >= 2309 && charCode <=2361;  }).length > 0)
+			{}
+			else 
+			{
+				alert ("Please Enter Hindi Word in Query Box");
+                return false;
+			}
+
+            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+            var boxes = document.getElementsByTagName('input');
+            for(i = 0; i < boxes.length; i++) {
+                if(boxes[i].type == "text" && boxes[i].className==="urls" && !regex.test(boxes[i].value)) {
+                    alert("Please enter valid URL. Error in Text Box "+boxes[i].value);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+    </script>
+
+</head>
+<body>
+<p align="right"><a href="https://yss2015000906.herokuapp.com/"> Click here for English version</a></p>
+<center>
+<h2>
+	 Hindi Text Summarization from Multiple Documents 
+</h2> </center>
+
+<center>
+<form method="Post" action="./result.jsp">
+<table>
+<br><br><Label> Enter a Query :  &nbsp;</label>
+<input name='habits' id='t1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+<Label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter the URL :  </label>
+<input name='habits' class="urls" id='t2'>
+&nbsp;&nbsp;<input id="btnAdd" type="button" value="add another URL" onclick="AddTextBox()" /><br><br>
+<div id="TextBoxContainer">
+<!--Textboxes will be added here -->
+</div>
+<Label> &nbsp;Required sentence : &nbsp;&nbsp;</label> 
+	<select name="habits">
+		<option value ="3">3 </option>
+		<option value ="4">4 </option>
+		<option value ="5">5 </option> 
+		<option value ="6">6 </option>
+		<option value ="7">7 </option>
+		<option value ="8">8 </option>
+		<option value ="9">9 </option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>		
+	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+<br><br>
+<input type="submit" name="submit" onclick="return check();"> 
+
+</table>
+</form>
+
+<br><br> <hr>
+
+<p style="display:inline-block; vertical-align:bottom;">
+         This project is sponsored by <a href="http://www.dst.gov.in/"> DST </a> - <a href="http://www.serb.gov.in/home.php"> SERB </a> &nbsp;&nbsp;(Ref No. YSS/2015/000906)<br>
+ <br> Developed by &nbsp;&nbsp;  <a href="https://rspvsanjayprofile.herokuapp.com/"> Sanjay Kumar Gupta (JRF)</a> &nbsp;&nbsp;
+        <!-- IRC Chat - Insert Quakenet id -->
+        Supervised by &nbsp;&nbsp;<a href="https://sites.google.com/site/ravindranathchowdaryshomepage/">  Dr. Ravindranath Chowdary C</a>
+         </p>
+</center>
+</body>
+</html>
